@@ -43,4 +43,3 @@ func extractPageData(html string, pageURL string) PageData {
 		ImageURLs:      imageURLs,
 	}
 }
-

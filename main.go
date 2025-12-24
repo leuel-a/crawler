@@ -2,17 +2,27 @@ package main
 
 import (
 	"fmt"
-	"net/url"
 	"os"
-	"strings"
 )
 
 func main() {
-	content, _ := os.ReadFile("index.html")
-	htmlBody := strings.TrimRight(string(content), "\n")
+	args := os.Args[1:]
 
-	baseURL, _ := url.Parse("http://blog.boot.dev")
-	urls, _ := getURLsFromHTML(htmlBody, baseURL)
+	if len(args) < 1 {
+		fmt.Printf("no website provided\n")
+		os.Exit(1)
+	} else if len(args) > 1 {
+		fmt.Printf("too many arguments provided\n")
+		os.Exit(1)
+	}
 
-	fmt.Printf("URLs: %v\n", urls)
+	BASE_URL := args[0]
+	html, err := getHTML(BASE_URL)
+	if err != nil {
+		fmt.Printf("unable to fetch the page content for url: %s\n", BASE_URL)
+		os.Exit(1)
+	}
+
+	fmt.Printf("starting crawl of: %v\n", BASE_URL)
+	fmt.Printf("html: %s\n", html)
 }
