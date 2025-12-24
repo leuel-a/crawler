@@ -25,12 +25,12 @@ func getHTML(rawURL string) (string, error) {
 	defer response.Body.Close()
 
 	if response.StatusCode >= 400 {
-		err = fmt.Errorf("[Error] got response with status code: %v\n", response.StatusCode)
+		err = fmt.Errorf("got response with status code: %v", response.StatusCode)
 		return "", err
 	}
 
 	if !strings.HasPrefix(response.Header.Get("Content-Type"), "text/html") {
-		err = fmt.Errorf("[Error] response is not an html content, instead: %s\n", response.Header.Get("Content-Type"))
+		err = fmt.Errorf("response is not an html content, instead: %s", response.Header.Get("Content-Type"))
 		return "", err
 	} 
 
